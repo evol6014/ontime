@@ -12,21 +12,27 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
+import org.slf4j.LoggerFactory;
+
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
 
 public class DepartureDelayCountJob {
 
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
+//		Logger root = (Logger)LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+//		root.setLevel(Level.INFO);
+		
 		Configuration conf = new Configuration();
 		
-//		conf.set("fs.defaultFS", "hdfs://bigdata01:8020");
-//		conf.set("yarn.resourcemanager.address", "bigdata01:8032");
-//		conf.set("mapreduce.framework.name", "yarn");
-//		conf.set("yarn.resourcemanager.scheduler.address", "bigdata01:8030");
+		conf.set("fs.defaultFS", "hdfs://bigdata01:8020");
+		conf.set("yarn.resourcemanager.address", "bigdata01:8032");
+		conf.set("mapreduce.framework.name", "yarn");
+		conf.set("yarn.resourcemanager.scheduler.address", "bigdata01:8030");
 		
-		Job job = new Job(conf, "DepartureDelayCount");
-		
-		job.setJarByClass(DepartureDelayCountJob.class);
+		Job job = new Job(conf, "DepartureDelayCountxx1");
+		job.setJar("target/ontime-0.0.1.jar");
 		
 		FileInputFormat.setInputPaths(job, "dataexpo/1987_nohead.csv");
 		FileInputFormat.addInputPaths(job, "dataexpo/1988_nohead.csv");

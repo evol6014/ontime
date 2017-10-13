@@ -37,14 +37,16 @@ public class HdfsDepartureDelayCountJob extends Configured implements Tool {
 		
 		Job job = new Job(conf, "DepartureDelayCountHDFS");
 		
-		job.setJarByClass(HdfsDepartureDelayCountJob.class);
+//		job.setJar("ontime-0.0.1.jar");
+		job.setJar("target/ontime-0.0.1.jar");
+//		job.setJarByClass(HdfsDepartureDelayCountJob.class);
 		
-//		FileInputFormat.setInputPaths(job, "dataexpo/1987_nohead.csv");
-//		FileInputFormat.addInputPaths(job, "dataexpo/1988_nohead.csv");
+		FileInputFormat.setInputPaths(job, "dataexpo/1987_nohead.csv");
+		FileInputFormat.addInputPaths(job, "dataexpo/1988_nohead.csv");
 //		FileInputFormat.addInputPaths(job, "dataexpo/1989_nohead.csv");
 //		FileInputFormat.addInputPaths(job, "dataexpo/1990_nohead.csv");
 		
-		FileInputFormat.addInputPaths(job, "dataexpo");
+//		FileInputFormat.addInputPaths(job, "dataexpo");
 		
 		job.setInputFormatClass(TextInputFormat.class);	// 생략가능
 		
@@ -58,9 +60,9 @@ public class HdfsDepartureDelayCountJob extends Configured implements Tool {
 		
 		job.setOutputFormatClass(TextOutputFormat.class);// 생략가능
 		
-//		String outputDir = "dataexpo_out/1988";
+		String outputDir = "dataexpo_out/1988";
 //		String outputDir = "dataexpo_out/1990";
-		String outputDir = "dataexpo_out/total";
+//		String outputDir = "dataexpo_out/total";
 		FileOutputFormat.setOutputPath(job, new Path(outputDir));
 		
 		MultipleOutputs.addNamedOutput(job, "xxx", TextOutputFormat.class, Text.class, IntWritable.class);

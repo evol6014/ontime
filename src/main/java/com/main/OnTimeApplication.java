@@ -35,7 +35,8 @@ public class OnTimeApplication implements CommandLineRunner {
 		SpringApplication.run(OnTimeApplication.class, args);
 	}
 	
-	@Value("${job.name:none}")
+//	@Value("${job.name:none}")
+	@Value("${job.name:hdfs}")
 	String jobName;
 
 	@Override

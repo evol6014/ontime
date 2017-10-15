@@ -35,6 +35,9 @@ public class OnTimeApplication implements CommandLineRunner {
 		SpringApplication.run(OnTimeApplication.class, args);
 	}
 	
+	@Value("${job.jar:target/ontime-0.0.1.jar}")
+	String jar;
+	
 //	@Value("${job.name:none}")
 	@Value("${job.name:hdfs}")
 	String jobName;
@@ -48,6 +51,7 @@ public class OnTimeApplication implements CommandLineRunner {
 		
 		System.out.println(Arrays.toString(args));
 		System.out.println("job.name=" + jobName);
+		System.out.println("job.jar=" + jar);
 		
 		switch (jobName) {
 		case "hdfs":
@@ -57,7 +61,7 @@ public class OnTimeApplication implements CommandLineRunner {
 			ToolRunner.run(conf, mongo, args);
 			break;	
 		default:
-			System.out.println("--job.name=[hdfs|mongo]");
+			System.out.println("--job.name=[hdfs|mongo] --job.jar=path");
 			break;
 		}
 	}

@@ -16,6 +16,7 @@ import org.apache.hadoop.mapreduce.lib.output.MultipleOutputs;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -38,6 +39,9 @@ public class MongoDepartureDelayCountJob extends Configured implements Tool {
 	@Autowired
 	FsShell fsh;
 	
+	@Value("${job.jar:target/ontime-0.0.1.jar}")
+	String jar;
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public int run(String[] args) throws Exception {
@@ -46,6 +50,7 @@ public class MongoDepartureDelayCountJob extends Configured implements Tool {
 		
 		Job job = new Job(conf, "DepartureDelayCount");
 		
+		job.setJar(jar);
 		job.setJarByClass(MongoDepartureDelayCountJob.class);
 		
 //		FileInputFormat.setInputPaths(job, "dataexpo/1987_nohead.csv");

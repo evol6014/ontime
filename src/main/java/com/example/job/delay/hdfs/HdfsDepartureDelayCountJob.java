@@ -16,6 +16,7 @@ import org.apache.hadoop.mapreduce.lib.output.MultipleOutputs;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,15 +32,17 @@ public class HdfsDepartureDelayCountJob extends Configured implements Tool {
 	@Autowired
 	FsShell fsh;
 	
+	@Value("${job.jar:target/ontime-0.0.1.jar}")
+	String jar;
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public int run(String[] args) throws Exception {
 		
 		Job job = new Job(conf, "DepartureDelayCountHDFS");
 		
-//		job.setJar("ontime-0.0.1.jar");
-		job.setJar("target/ontime-0.0.1.jar");
-//		job.setJarByClass(HdfsDepartureDelayCountJob.class);
+		job.setJar(jar);
+		job.setJarByClass(HdfsDepartureDelayCountJob.class);
 		
 		FileInputFormat.setInputPaths(job, "dataexpo/1987_nohead.csv");
 		FileInputFormat.addInputPaths(job, "dataexpo/1988_nohead.csv");

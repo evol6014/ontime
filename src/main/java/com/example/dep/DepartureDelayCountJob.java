@@ -21,8 +21,8 @@ public class DepartureDelayCountJob {
 
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
-//		Logger root = (Logger)LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
-//		root.setLevel(Level.INFO);
+		Logger root = (Logger)LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+		root.setLevel(Level.INFO);
 		
 		Configuration conf = new Configuration();
 		
